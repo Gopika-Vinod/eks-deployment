@@ -45,7 +45,7 @@ jobs:
 
       - name: Scale Up Node Group (If Needed)
         run: |
-          eksctl scale nodegroup --cluster=my-eks-cluster --name=my-node-group --nodes=2 || echo "Scaling failed, node group may not exist."
+          eksctl scale nodegroup --cluster=my-eks-cluster --name=eks-node-group --nodes=2 || echo "Scaling failed, node group may not exist."
 
       - name: Restart AWS CNI Plugin (To Increase Max Pods Per Node)
         run: |
