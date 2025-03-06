@@ -18,7 +18,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2  # Change this to your AWS region
+          aws-region: ap-south-1  # Change this to your AWS region
 
       - name: Authenticate with Amazon EKS
         run: |
@@ -30,3 +30,7 @@ jobs:
           kubectl get nodes
           kubectl get pods -n default
           kubectl get svc -n default
+
+      - name: Describe Node for Debugging
+        run: |
+          kubectl describe node ip-172-31-37-16.ap-south-1.compute.internal
