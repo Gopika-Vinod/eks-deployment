@@ -1,0 +1,32 @@
+name: Check AWS EKS Resources
+
+on:
+  push:
+    branches:
+      - feature/deployment  # Trigger only on this branch
+
+jobs:
+  check-eks:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Checks out the repository
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2  # Change this to your AWS region
+
+      - name: Authenticate with Amazon EKS
+        run: |
+          aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
+          kubectl cluster-info
+
+      - name: Check Kubernetes Resources
+        run: |
+          kubectl get nodes
+          kubectl get pods -n default
+          kubectl get svc -n default

@@ -3,7 +3,7 @@ name: Install Helm and Deploy to AWS EKS
 on:
   push:
     branches:
-      - feature/deployment  # Trigger only on the deployment branch
+    #  - feature/deployment  # Trigger only on the deployment branch
 
 jobs:
   deploy:
