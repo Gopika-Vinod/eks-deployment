@@ -40,11 +40,12 @@ jobs:
           aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
           kubectl cluster-info  # Verify connection
 
-      - name: Deploy Nginx Using Helm
+      - name: Deploy Nginx Using Helm (Bitnami Repo)
         run: |
-          helm repo add stable https://charts.helm.sh/stable
+          helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
-          helm install my-nginx stable/nginx --namespace default
+          helm install my-nginx bitnami/nginx --namespace default
+
 
       - name: Verify Deployment
         run: |
