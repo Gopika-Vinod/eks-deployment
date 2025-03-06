@@ -34,3 +34,11 @@ jobs:
       - name: Describe Node for Debugging
         run: |
           kubectl describe node ip-172-31-37-16.ap-south-1.compute.internal
+
+      - name: Describe Pending Pods for Debugging
+        run: |
+          PENDING_PODS=$(kubectl get pods -n default --field-selector=status.phase=Pending -o jsonpath='{.items[*].metadata.name}')
+          for pod in $PENDING_PODS; do
+            echo "Describing pod: $pod"
+            kubectl describe pod $pod -n default
+          done
